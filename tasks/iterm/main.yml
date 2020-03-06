@@ -1,0 +1,14 @@
+---
+- name: Import my profile
+  copy:
+    src: files/iterm/Default.json
+    dest: ~/Library/Application Support/iTerm2/DynamicProfiles/Default.json
+    owner: aurelien
+    group: staff
+    mode: u+rw,g-r,o-r
+- name: Set my profile as default
+  osx_defaults:
+    domain: com.googlecode.iterm2
+    key: Default Bookmark Guid
+    type: string
+    value: CB4FE540-2764-406C-8957-CA1BE4F05AFC

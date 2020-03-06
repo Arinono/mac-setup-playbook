@@ -1,0 +1,165 @@
+---
+downloads: ~/.ansible-downloads/
+home: /Users/aurelien
+
+configure_dotfiles: yes
+configure_homebrew: yes
+configure_osx: yes
+configure_iterm: yes
+configure_extra_packages: yes
+mas_installed_apps: yes
+
+dotfiles_repo: https://github.com/Arinono/dotfiles.git
+dotfiles_repo_accept_hostkey: yes
+dotfiles_repo_local_destination: ~/dev/misc/dotfiles
+dotfiles_files:
+  - .zshrc
+  - .inputrc
+  - .osx
+  - .gitconfig
+  - .gitignore
+
+homebrew_installed_packages:
+  - dockutil
+  - tree
+  - n
+  - autoconf
+  - git
+  - gpg
+  - iperf
+  - libevent
+  - nmap
+  - openssl
+  - wget
+  - htop
+  - aircrack-ng
+  - ffmpeg
+  - asciinema
+  - hashcat
+  - libgcrypt
+  - openssl
+  - pinentry
+  - postgresql
+  - sqitch
+  - watch
+  - yarn
+  - sqlite
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+  - homebrew/cask-versions
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps: 
+  - chromedriver
+  - docker
+  - google-chrome
+  - slack
+  - 1password
+  - brave-browser
+  - discord
+  - figma
+  - flycut
+  - iterm2
+  - insomnia
+  - keycastr
+  - sizzy
+  - spark
+  - spotify
+  - termius
+  - tweetbot
+  - vlc
+  - visual-studio-code-insiders
+  - zoomus
+  - rocket
+
+mas_installed_apps:
+  - { id: 425264550, name: "Blackmagic Disk Speed Test" }
+  - { id: 425424353, name: "The Unarchiver" }
+mas_email: ""
+mas_password: ""
+
+dockitems_to_remove:
+  - Launchpad
+  - Mail
+  - Safari
+  - Contacts
+  - Notes
+  - Reminders
+  - Maps
+  - Photos
+  - Messages
+  - FaceTime
+  - iTunes
+  - iBooks
+  - App Store
+  - Calendar
+
+dockitems_to_persist:
+  - name: System Preferences
+    path: /Applications/System Preferences.app
+    pos: 1
+  - name: 1Password 7
+    path: /Applications/1Password 7.app
+    pos: 2
+  - name: Spark
+    path: /Applications/Spark.app
+    pos: 3
+  - name: Slack
+    path: /Applications/Slack.app
+    pos: 4
+  - name: Brave Browser
+    path: /Applications/Brave Browser.app
+    pos: 5
+  - name: Visual Studio Code - Insiders
+    path: /Applications/Utilities/Visual Studio Code - Insiders.app
+    pos: 6
+  - name: iTerm
+    path: /Applications/iTerm.app
+    pos: 7
+  - name: Figma
+    path: /Applications/Figma.app
+    pos: 8
+  - name: Spotify
+    path: /Applications/Spotify.app
+    pos: 9
+
+osx_script: "~/.osx --no-restart"
+
+# Install packages from other package managers.
+# Note: You are responsible for making sure the required package managers are
+# installed, eg. through homebrew.
+composer_packages: []
+  # - name: drush
+  #   state: present # present/absent, default: present
+  #   version: "^8.1" # default: N/A
+gem_packages: []
+  # - name: bundler
+  #   state: present # present/absent/latest, default: present
+  #   version: "~> 1.15.1" # default: N/A
+yarn_packages:
+  - name: '@vue/cli'
+    state: latest
+  - name: '@vue/cli-service'
+    state: latest
+  - name: 'now'
+    state: latest
+  - name: 'standard-version'
+    state: latest
+  - name: 'standard-changelog'
+    state: latest
+  - name: 'typescript'
+    state: latest
+  - name: 'ts-node'
+    state: latest
+pip_packages: []
+  # - name: mkdocs
+  #   state: present # present/absent/latest, default: present
+  #   version: "0.16.3" # default: N/A
+
+# Glob pattern to ansible task files to run after all other tasks are finished.
+post_provision_tasks: []
+
+# ITERM
+it_default_profile: "{{ lookup('file', 'files/iterm/com.googlecode.iterm2-New_Bookmarks') }}"

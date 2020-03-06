@@ -1,0 +1,37 @@
+---
+- include_tasks: ui.yml
+- include_tasks: inputs.yml
+- include_tasks: screen.yml
+- include_tasks: finder.yml
+- include_tasks: dock.yml
+- include_tasks: safari.yml
+- include_tasks: activity-monitor.yml
+- include_tasks: text-edit.yml
+- include_tasks: fonts.yml
+
+- name: Quit xQuartz when the last window is closed
+  osx_defaults:
+    domain: org.macosforge.xquartz.X11
+    key: wm_auto_quit
+    type: bool
+    value: true
+- name: Start FlyCut on startup
+  osx_defaults:
+    domain: com.generalarcade.flycut
+    key: loadOnStartup
+    type: bool
+    value: true
+- name: Disable maximize when share view
+  osx_defaults:
+    domain: ZoomChat
+    key: ZoomEnterMaxWndWhenViewShare
+    type: bool
+    value: false
+- name: Import my fonts
+  synchronize:
+    src: files/fonts/
+    dest: ~/Library/Fonts/
+
+- name: Run .osx dotfiles.
+  shell: "{{ osx_script }}"
+  changed_when: false

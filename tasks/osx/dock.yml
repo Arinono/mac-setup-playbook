@@ -1,0 +1,33 @@
+###############################################################################
+# Dock, Dashboard, and hot corners                                            #
+###############################################################################
+---
+- name: Set the icon size of Dock items
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: 45
+- name: Speed up Mission Control animations
+  osx_defaults:
+    domain: com.apple.dock
+    key: expose-animation-duration
+    type: float
+    value: 0.15
+- name: Make Dock icons of hidden applications translucent
+  osx_defaults:
+    domain: com.apple.dock
+    key: showhidden
+    type: bool
+    value: true
+
+# Set dock apps
+- name: Remove all crap from Dock
+  shell: dockutil --remove '{{ item }}'
+  with_items: "{{ dockitems_to_remove }}"
+- name: Check if items in dock exist
+  shell: dockutil --find '{{ item.name }}' || dockutil --add '{{ item.path }}'
+  with_items: "{{ dockitems_to_persist }}"
+- name: Fix order
+  shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}
+  with_items: "{{ dockitems_to_persist }}"

@@ -1,0 +1,22 @@
+###############################################################################
+# Activity Monitor                                                            #
+###############################################################################
+---
+- name: Show the main window when launching Activity Monitor
+  osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: OpenMainWindow
+    type: bool
+    value: true
+- name: Show the main window when launching Activity Monitor
+  osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: IconType
+    type: int
+    value: 5
+- name: Show the main window when launching Activity Monitor
+  osx_defaults:
+    domain: com.apple.ActivityMonitor
+    key: ShowCategory
+    type: int
+    value: 0

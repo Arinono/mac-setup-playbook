@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars_files:
+    - default.config.yml
+
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
+  roles:
+    - role: geerlingguy.homebrew
+      when: configure_homebrew
+      tags: ['homebrew']
+    - role: geerlingguy.dotfiles
+      when: configure_dotfiles
+      tags: ['dotfiles']
+    - role: geerlingguy.mas
+      when: mas_installed_apps
+      tags: ['mas']
+
+  tasks:
+    - include_tasks: tasks/ansible-setup.yml
+
+    - include_tasks: tasks/osx/main.yml
+      when: configure_osx
+      tags: ['osx']
+
+    - include_tasks: tasks/iterm/main.yml
+      when: configure_iterm
+      tags: ['iterm']
+
+    - include_tasks: tasks/extra-packages.yml
+      when: configure_extra_packages
+      tags: ['extra-packages']
+
+    - name: Run configured post-provision ansible task files.
+      include_tasks: "{{ outer_item }}"
+      loop_control:
+        loop_var: outer_item
+      with_fileglob: "{{ post_provision_tasks|default(omit) }}"
