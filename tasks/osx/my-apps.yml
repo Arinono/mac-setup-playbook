@@ -1,0 +1,154 @@
+---
+# xQuartz
+- name: Quit xQuartz when the last window is closed
+  osx_defaults:
+    domain: org.macosforge.xquartz.X11
+    key: wm_auto_quit
+    type: bool
+    value: true
+
+# FlyCut
+- name: Start FlyCut on startup
+  osx_defaults:
+    domain: com.generalarcade.flycut
+    key: loadOnStartup
+    type: bool
+    value: true
+
+# Zoom
+- name: Disable maximize when share view
+  osx_defaults:
+    domain: ZoomChat
+    key: ZoomEnterMaxWndWhenViewShare
+    type: bool
+    value: false
+
+# 1password
+- name: Set default password generation size
+  osx_defaults:
+    domain: com.agilebits.onepassword7
+    key: PasswordLength
+    type: int
+    value: 64
+- name: Set default password digit number
+  osx_defaults:
+    domain: com.agilebits.onepassword7
+    key: PasswordDigits
+    type: int
+    value: 10
+- name: Set default password character number
+  osx_defaults:
+    domain: com.agilebits.onepassword7
+    key: PasswordSymbols
+    type: int
+    value: 10
+- name: Set default password character number
+  osx_defaults:
+    domain: com.agilebits.onepassword7
+    key: PasswordType
+    type: string
+    value: "characters"
+
+# iStatMenu
+- name: Install license
+  shell: defaults write com.bjango.istatmenus license6 -dict email {{ main_email }} serial {{ istat_license }}
+
+# SoundSource
+- name: Install license
+  shell: defaults write com.rogueamoeba.soundsource registrationInfo -dict Name "Aurelien Arino" Code {{ soundsource_license }}
+
+# Spotify
+- name: Set startup mode Spotify
+  osx_defaults:
+    domain: com.spotify.client
+    key: AutoStartSettingIsHidden
+    type: bool
+    value: false
+- name: Set run mode Spotify
+  osx_defaults:
+    domain: com.spotify.client
+    key: run_mode
+    type: string
+    value: "clean_quit"
+
+# Tweetbot
+- name: Set exit mode Tweetbot
+  osx_defaults:
+    domain: com.tapbots.Tweetbot3Mac
+    key: NSQuitAlwaysKeepsWindows
+    type: bool
+    value: true
+
+# SpotifyNotify
+- name: SpotifyNotify - first.run.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: first.run.key
+    type: bool
+    value: true
+- name: SpotifyNotify - menuicon.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: menuicon.key
+    type: int
+    value: 99
+- name: SpotifyNotify - notifications.enabled.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: notifications.enabled.key
+    type: bool
+    value: true
+- name: SpotifyNotify - notifications.focus.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: notifications.focus.key
+    type: bool
+    value: true
+- name: SpotifyNotify - notifications.length.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: notifications.length.key
+    type: int
+    value: 3
+- name: SpotifyNotify - notifications.playpause.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: notifications.playpause.key
+    type: bool
+    value: true
+- name: SpotifyNotify - notifications.sound.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: notifications.sound.key
+    type: bool
+    value: false
+- name: SpotifyNotify - roundalbumart.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: roundalbumart.key
+    type: bool
+    value: false
+- name: SpotifyNotify - showalbumart.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: showalbumart.key
+    type: bool
+    value: true
+- name: SpotifyNotify - songprogress.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: songprogress.key
+    type: bool
+    value: true
+- name: SpotifyNotify - spotifyicon.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: spotifyicon.key
+    type: bool
+    value: false
+- name: SpotifyNotify - startonlogin.key
+  osx_defaults:
+    domain: io.nahive.SpotifyNotify
+    key: startonlogin.key
+    type: bool
+    value: true

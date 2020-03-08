@@ -1,0 +1,78 @@
+---
+- name: Check for existing SSH private key
+  stat:
+    path: ~/.ssh/id_rsa
+  register: ssh_private
+
+- name: Check for existing SSH public key
+  stat:
+    path: ~/.ssh/id_rsa.pub
+  register: ssh_public
+
+- name: Create SSH key
+  shell: ssh-keygen -t rsa -b 4096 -C "{{ main_email }}" -f ~/.ssh/id_rsa -N ''
+  when: ssh_private.stat.exists == False or ssh_private.stat.mode is not defined or ssh_private.stat.mode != "0600" or 
+        ssh_public.stat.exists == False or ssh_public.stat.mode is not defined or ssh_public.stat.mode != "0644"
+  register: add_to_agent
+
+- name: Add SSH key to the ssh-agent
+  shell: eval "$(ssh-agent -s)" && ssh-add -K ~/.ssh/id_rsa
+  when: ssh_private.stat.exists == False or ssh_private.stat.mode is not defined or ssh_private.stat.mode != "0600" or 
+        ssh_public.stat.exists == False or ssh_public.stat.mode is not defined or ssh_public.stat.mode != "0644"
+
+- name: Creating GPG template
+  shell: 
+    cmd: |
+      cat >keydetails <<EOF
+      %echo Generating a basic OpenPGP key
+      Key-Type: default
+      Key-Length: 4096
+      Subkey-Type: RSA
+      Subkey-Length: 4096
+      Name-Real: Aurelien ARINO
+      Name-Email: {{ main_email }}
+      Expire-Date: 0
+      Passphrase: {{ gpg_password }}
+      %commit
+      %echo done
+      EOF
+
+- name: Generating GPG key
+  shell: /usr/local/bin/gpg --verbose --batch --gen-key keydetails
+  register: gpg_output
+
+- name: Reducing output
+  set_fact:
+    joined: "{{ gpg_output.stderr_lines | select('match', '^gpg: key [0-9A-F]+ marked as ultimately trusted$') | list }}"
+
+- name: Getting the key ID
+  set_fact:
+    key_id: "{{ joined | regex_replace('[a-z\\s:]', '') }}"
+
+- name: Extract public GPG key
+  shell: /usr/local/bin/gpg --armor --export "{{ key_id[0] }}"
+  register: gpg_public
+
+- name: Create keys directory
+  file:
+    path: "~/Downloads/KEYS-{{ key_id[0] }}"
+    state: directory
+
+- name: Write key to file
+  copy:
+    content: "{{ gpg_public.stdout }}"
+    dest: "~/Downloads/KEYS-{{ key_id[0] }}/gpg"
+
+- name: Copy SSH public
+  copy:
+    src: ~/.ssh/id_rsa.pub
+    dest: "~/Downloads/KEYS-{{ key_id[0] }}/ssh"
+
+- name: Create encrypted image for keys
+  shell: hdiutil create -srcfolder ~/Downloads/KEYS-{{ key_id[0] }} -encryption AES-128 -stdinpass ~/Downloads/KEYS-{{ key_id[0] }}.dmg
+
+- name: Remove keys directory
+  file:
+    path: "~/Downloads/KEYS-{{ key_id[0] }}"
+    state: absent
+  

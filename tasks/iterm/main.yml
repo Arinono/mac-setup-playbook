@@ -1,4 +1,8 @@
 ---
+- name: Create profile directory
+  file:
+    path: /Users/aurelien/Library/Application Support/iTerm2/DynamicProfiles
+    state: directory
 - name: Import my profile
   copy:
     src: files/iterm/Default.json
@@ -12,3 +16,5 @@
     key: Default Bookmark Guid
     type: string
     value: CB4FE540-2764-406C-8957-CA1BE4F05AFC
+- name: Install ohmyz.sh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

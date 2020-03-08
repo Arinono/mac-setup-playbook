@@ -2,13 +2,6 @@
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 ---
-- name: Enable secondary click
-  osx_defaults:
-    domain: NSGlobalDomain
-    key: com.apple.trackpad.enableSecondaryClick
-    type: bool
-    value: true
-    host: currentHost
 - name: Increase sound quality for Bluetooth headphones/headsets
   osx_defaults:
     domain: com.apple.BluetoothAudioAgent

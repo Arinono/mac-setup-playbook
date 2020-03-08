@@ -1,0 +1,11 @@
+---
+- name: Create n directories
+  become: yes
+  file:
+    path: /usr/local/n/versions/node
+    state: directory
+    recurse: true
+    owner: aurelien
+    group: staff
+- name: Install node
+  shell: /usr/local/bin/n latest

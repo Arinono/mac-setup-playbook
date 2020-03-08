@@ -1,4 +1,10 @@
 ---
-- name: geerlingguy.dotfiles
-- name: geerlingguy.homebrew
-- name: geerlingguy.mas
+roles:
+  - name: geerlingguy.dotfiles
+  - name: geerlingguy.homebrew
+  - name: geerlingguy.mas
+
+collections:
+  - name: https://github.com/ansible-collections/community.general
+    type: git
+    version: 72b59c764ecc260040db0314c57b170d2c14b183

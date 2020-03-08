@@ -13,7 +13,7 @@
     state: "{{ item.state | default('present') }}"
     version: "{{ item.version | default(omit) }}"
     global: yes
-    executable: "{{ item.executable | default(omit) }}"
+    executable: PATH=$PATH:/usr/local/bin "{{ item.executable | default(omit) }}"
   with_items: "{{ yarn_packages }}"
 
 - name: Install global Pip packages.

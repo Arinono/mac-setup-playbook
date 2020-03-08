@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all
 
   vars_files:
     - default.config.yml
@@ -36,6 +35,10 @@
     - include_tasks: tasks/extra-packages.yml
       when: configure_extra_packages
       tags: ['extra-packages']
+
+    - include_tasks: tasks/keys/main.yml
+      when: configure_keys
+      tags: ['keys']
 
     - name: Run configured post-provision ansible task files.
       include_tasks: "{{ outer_item }}"

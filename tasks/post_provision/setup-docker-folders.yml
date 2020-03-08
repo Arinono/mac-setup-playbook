@@ -1,0 +1,10 @@
+---
+- name: Create shared directory
+  become: yes
+  file:
+    path: /private/var/docker-host
+    state: directory
+    recurse: true
+    owner: aurelien
+    group: staff
+    mode: 0750

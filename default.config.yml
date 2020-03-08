@@ -8,10 +8,11 @@ configure_osx: yes
 configure_iterm: yes
 configure_extra_packages: yes
 mas_installed_apps: yes
+configure_keys: yes
 
 dotfiles_repo: https://github.com/Arinono/dotfiles.git
 dotfiles_repo_accept_hostkey: yes
-dotfiles_repo_local_destination: ~/dev/misc/dotfiles
+dotfiles_repo_local_destination: ~/workspace/misc/dotfiles
 dotfiles_files:
   - .zshrc
   - .inputrc
@@ -20,59 +21,84 @@ dotfiles_files:
   - .gitignore
 
 homebrew_installed_packages:
-  - dockutil
-  - tree
-  - n
-  - autoconf
-  - git
-  - gpg
-  - iperf
-  - libevent
-  - nmap
-  - openssl
-  - wget
-  - htop
-  - aircrack-ng
-  - ffmpeg
   - asciinema
+  - autoconf
+  - automake
+  - bash
+  - cmake
+  - dart
+  - deno
+  - docker-compose
+  - docker-machine
+  - dockutil
+  - dust
+  - ffmpeg
+  - git
+  - gnupg
+  - go
   - hashcat
-  - libgcrypt
-  - openssl
+  - helm
+  - htop
+  - jq
+  - kubernetes-cli
+  - lcov
+  - libusb
+  - mas
+  - mysql-client
+  - n
+  - nmap
   - pinentry
   - postgresql
+  - python
   - sqitch
-  - watch
-  - yarn
   - sqlite
+  - telnet
+  - tree
+  - wasm-pack
+  - watch
+  - wget
+  - wireguard-go
+  - wireguard-tools
+  - yarn
 
 homebrew_taps:
-  - homebrew/core
+  - adoptopenjdk/openjdk
+  - dart-lang/dart
   - homebrew/cask
+  - homebrew/cask-drivers
   - homebrew/cask-versions
+  - homebrew/core
+  - homebrew/services
+  - sqitchers/sqitch
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps: 
-  - chromedriver
-  - docker
-  - google-chrome
-  - slack
   - 1password
   - brave-browser
+  - chromedriver
+  - chromium
+  - coconutbattery
   - discord
+  - docker
   - figma
   - flycut
-  - iterm2
+  - google-chrome
+  - google-cloud-sdk
   - insomnia
+  - istat-menus
+  - iterm2
   - keycastr
-  - sizzy
-  - spark
+  - loom
+  - ngrok
+  - notion
+  - obs
+  - signal
+  - slack
+  - soundsource
   - spotify
-  - termius
   - tweetbot
-  - vlc
   - visual-studio-code-insiders
-  - zoomus
-  - rocket
+  - vlc
 
 mas_installed_apps:
   - { id: 425264550, name: "Blackmagic Disk Speed Test" }
@@ -82,19 +108,21 @@ mas_password: ""
 
 dockitems_to_remove:
   - Launchpad
-  - Mail
   - Safari
-  - Contacts
-  - Notes
-  - Reminders
+  - Messages
+  - Mail
   - Maps
   - Photos
-  - Messages
   - FaceTime
-  - iTunes
-  - iBooks
-  - App Store
+  - News
   - Calendar
+  - Contacts
+  - Reminders
+  - Notes
+  - TV
+  - Music
+  - Podcasts
+  - App Store
 
 dockitems_to_persist:
   - name: System Preferences
@@ -103,17 +131,17 @@ dockitems_to_persist:
   - name: 1Password 7
     path: /Applications/1Password 7.app
     pos: 2
+  - name: Signal
+    path: /Applications/Signal.app
+    pos: 3
   - name: Spark
     path: /Applications/Spark.app
-    pos: 3
-  - name: Slack
-    path: /Applications/Slack.app
     pos: 4
   - name: Brave Browser
     path: /Applications/Brave Browser.app
     pos: 5
   - name: Visual Studio Code - Insiders
-    path: /Applications/Utilities/Visual Studio Code - Insiders.app
+    path: /Applications/Visual Studio Code - Insiders.app
     pos: 6
   - name: iTerm
     path: /Applications/iTerm.app
@@ -121,9 +149,15 @@ dockitems_to_persist:
   - name: Figma
     path: /Applications/Figma.app
     pos: 8
+  - name: Slack
+    path: /Applications/Slack.app
+    pos: 9
+  - name: Tandem
+    path: /Applications/Tandem.app
+    pos: 10
   - name: Spotify
     path: /Applications/Spotify.app
-    pos: 9
+    pos: 11
 
 osx_script: "~/.osx --no-restart"
 
@@ -141,25 +175,47 @@ gem_packages: []
 yarn_packages:
   - name: '@vue/cli'
     state: latest
-  - name: '@vue/cli-service'
+    executable: /usr/local/bin/yarn
+  - name: 'eslint'
     state: latest
-  - name: 'now'
+    executable: /usr/local/bin/yarn
+  - name: 'jest'
     state: latest
-  - name: 'standard-version'
-    state: latest
+    executable: /usr/local/bin/yarn
   - name: 'standard-changelog'
     state: latest
-  - name: 'typescript'
+    executable: /usr/local/bin/yarn
+  - name: 'standard-version'
     state: latest
+    executable: /usr/local/bin/yarn
   - name: 'ts-node'
     state: latest
+    executable: /usr/local/bin/yarn
+  - name: 'ts-watch'
+    state: latest
+    executable: /usr/local/bin/yarn
+  - name: 'typescript'
+    state: latest
+    executable: /usr/local/bin/yarn
 pip_packages: []
   # - name: mkdocs
   #   state: present # present/absent/latest, default: present
   #   version: "0.16.3" # default: N/A
 
 # Glob pattern to ansible task files to run after all other tasks are finished.
-post_provision_tasks: []
+post_provision_tasks: 
+  - post_provision/install-node.yml
 
 # ITERM
 it_default_profile: "{{ lookup('file', 'files/iterm/com.googlecode.iterm2-New_Bookmarks') }}"
+
+main_email: ""
+
+# GPG
+gpg_password: ""
+
+# iStatMenu
+istat_license: ""
+
+# SoundSource
+soundsource_license: ""
