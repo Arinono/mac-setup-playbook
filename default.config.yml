@@ -19,8 +19,12 @@ dotfiles_files:
   - .osx
   - .gitconfig
   - .gitignore
+  - .zshenv
+  - .zlogin
+  - .p10k.zsh
 
 homebrew_installed_packages:
+  - archey
   - asciinema
   - autoconf
   - automake
